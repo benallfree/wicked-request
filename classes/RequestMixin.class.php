@@ -47,6 +47,18 @@ class RequestMixin extends Mixin
     self::$request = $request;  
   }
   
+  static function request($k=null)
+  {
+    if(!$k) return self::$request;
+    return self::$request[$k];
+  }
+  
+  static function params($k=null)
+  {
+    if(!$k) return self::$request['params'];
+    return self::$request['params'][$k];
+  }
+  
   static function p($name, $val='')
   {
     $elems = preg_split("/[\[\]]/", $name);
