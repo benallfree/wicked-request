@@ -2,6 +2,8 @@
 
 $config = array(
   'requires'=>array(
-    'class_lazyloader'
+    'class_lazyloader',
+    'path_utils',
+    'collections',
   ),
 );

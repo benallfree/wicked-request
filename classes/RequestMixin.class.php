@@ -10,7 +10,7 @@ class RequestMixin extends Mixin
     $full_request_path = trim($_SERVER['REQUEST_URI'],"/");
     $protocol = isset($_SERVER['HTTPS']) ? 'https' : 'http';
     $current_url = "{$protocol}://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-    $request_path = vpath("/{$parts[0]}");
+    $request_path = W::vpath("/{$parts[0]}");
     $params = array_merge($_GET, $_POST);
     
     // Fix file struct
@@ -19,7 +19,7 @@ class RequestMixin extends Mixin
       foreach($fields as $field)
       {
         if (count($v['name'])==0) break;
-        merge_bottom($params[$k], $v[$field], $field);
+        W::array_merge_bottom($params[$k], $v[$field], $field);
       }
     }
     
