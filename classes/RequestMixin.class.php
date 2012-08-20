@@ -78,4 +78,38 @@ class RequestMixin extends Mixin
     if (!array_key_exists($s,$_REQUEST)) return $default;
     return $_REQUEST[$s];
   }
+  
+  static function redirect_to($url, $qs=array())
+  {
+    header("Location: ". self::build_url($url,$qs));
+    die;
+  }
+  
+  static function is_postback()
+  {
+    return count($_POST)>0;
+  }
+  
+  static function this_url($qs = array())
+  {
+    return self::build_url(self::request('current_url'), $qs);
+  }
+  
+  static function build_url($url, $qs = array())
+  {
+    $parts = explode('?', $url);
+    $path = $parts[0];
+    $query = array();
+    if(count($parts)>1)
+    {
+      parse_str($parts[1], $query);
+    }
+    $qs = array_merge($query, $qs);
+    $url = $path;
+    if(count($qs)>0)
+    {
+      $url .= "?".http_build_query($qs);
+    }
+    return $url;
+  }
 }
